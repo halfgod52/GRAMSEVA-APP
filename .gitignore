@@ -1,0 +1,29 @@
+﻿# Node
+node_modules/
+dist/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# ML Models & Datasets
+*.h5
+*.onnx.data
+backend/models/
+ml training/
+
+# OS
+.DS_Store
+backend/*.pth
+backend/*.pt
+
+# Temp scripts
+check_sizes.ps1
+fix_and_push.ps1
+fresh_push.ps1

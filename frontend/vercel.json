@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/chest-detect",
+      "destination": "http://localhost:8001/api/chest-detect"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
