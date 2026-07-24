@@ -87,7 +87,8 @@ export default function ResetPassword() {
                 if (updateError.message?.toLowerCase().includes('same')) {
                     throw new Error('New password must be different from your current password.');
                 }
-                throw new Error(updateError.message || 'Failed to update password.');
+                const msg = updateError.message && updateError.message !== '{}' ? updateError.message : 'Failed to update password.';
+                throw new Error(msg);
             }
 
             setMessage('Password updated successfully! Redirecting to login...');
@@ -98,10 +99,11 @@ export default function ResetPassword() {
                 navigate('/login');
             }, 2500);
         } catch (err) {
-            if (err.message === 'Failed to fetch' || err.name === 'TypeError') {
+            const errMsg = err?.message && err.message !== '{}' ? err.message : '';
+            if (errMsg === 'Failed to fetch' || err.name === 'TypeError') {
                 setError('Network error: Unable to reach the authentication server. Please check your internet connection.');
             } else {
-                setError(err.message || 'An unexpected error occurred. Please try again.');
+                setError(errMsg || 'An unexpected error occurred. Please try again.');
             }
         } finally {
             setLoading(false);
