@@ -42,16 +42,18 @@ export default function ForgotPassword() {
                     setLoading(false);
                     return;
                 }
-                throw new Error(resetError.message || 'Failed to send reset email. Please try again.');
+                const msg = resetError.message && resetError.message !== '{}' ? resetError.message : 'Failed to send reset email. Please verify your Supabase deployment and credentials.';
+                throw new Error(msg);
             }
 
             setMessage('Password reset link sent! Please check your email inbox and spam folder. The link will expire in 1 hour.');
         } catch (err) {
+            const errMsg = err?.message && err.message !== '{}' ? err.message : '';
             // Distinguish network errors from API errors
-            if (err.message === 'Failed to fetch' || err.name === 'TypeError') {
+            if (errMsg === 'Failed to fetch' || err.name === 'TypeError') {
                 setError('Network error: Unable to reach the authentication server. Please check your internet connection and try again.');
             } else {
-                setError(err.message || 'An unexpected error occurred. Please try again.');
+                setError(errMsg || 'An unexpected error occurred while communicating with authentication service. Please check your deployment environment variables.');
             }
         } finally {
             setLoading(false);
