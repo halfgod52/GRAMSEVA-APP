@@ -85,13 +85,14 @@ export default function Register() {
                 setStep(3);
             }
         } catch (err) {
-            if (err.message?.includes('rate') || err.message?.includes('limit')) {
+            const errMsg = err?.message && err.message !== '{}' ? err.message : '';
+            if (errMsg.includes('rate') || errMsg.includes('limit')) {
                 setError('Email rate limit reached — Supabase free tier allows ~3 emails/hour. Use the "Skip to Dashboard" button below, or wait a few minutes and try again.');
                 setStep(3);
-            } else if (err.message === 'Failed to fetch' || err.name === 'TypeError') {
+            } else if (errMsg === 'Failed to fetch' || err.name === 'TypeError') {
                 setError('Network error: Unable to reach the authentication server. Please check your internet connection.');
             } else {
-                setError(err.message);
+                setError(errMsg || 'An unexpected error occurred during registration. Please try again.');
             }
         }
         setLoading(false);
