@@ -20,6 +20,7 @@ export const supabase = isSupabaseConfigured
             getUser: async () => ({ data: { user: null } }),
             signUp: async () => ({ error: { message: 'Supabase not configured. Add keys to .env' } }),
             signInWithPassword: async () => ({ error: { message: 'Supabase not configured. Add keys to .env' } }),
+            resetPasswordForEmail: async () => ({ error: { message: 'Supabase not configured. Add keys to .env' } }),
             signOut: async () => ({}),
             onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => { } } } }),
         },
